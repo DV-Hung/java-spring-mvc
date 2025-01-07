@@ -27,9 +27,16 @@ public class UserService {
         return this.userRepository.findTop2ByEmail(email);
     }
 
+    public User getUserById(long id) {
+        return this.userRepository.findById(id);
+    }
+
+    public void deleteById(long id) {
+        this.userRepository.deleteById(id);
+    }
+
     public User handleSaveUser(User user) {
         User tmp = this.userRepository.save(user);
-        System.out.println(tmp);
         return tmp;
     }
 }
