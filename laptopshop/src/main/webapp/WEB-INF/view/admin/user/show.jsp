@@ -40,6 +40,7 @@
                                                     <th scope="col">ID</th>
                                                     <th scope="col">Email</th>
                                                     <th scope="col">Fullname</th>
+                                                    <th scope="col">Role</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -49,6 +50,7 @@
                                                         <th>${user.id}</th>
                                                         <td>${user.email}</td>
                                                         <td>${user.fullName}</td>
+                                                        <td>${user.role.name}</td>
                                                         <td>
                                                             <a href="/admin/user/${user.id}"
                                                                 class="btn btn-success">View</a>
@@ -61,6 +63,32 @@
                                                 </c:forEach>
                                             </tbody>
                                         </table>
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-center">
+                                                <li class="page-item">
+                                                    <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
+                                                        href="/admin/user?page=${currentPage -1 }"
+                                                        aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <c:forEach begin="1" end="${totalPages}" varStatus="loop">
+                                                    <li class="page-item">
+                                                        <a class="${(loop.index) eq currentPage ? 'active page-link' : 'page-link'}"
+                                                            href="/admin/user?page=${loop.index }">${loop.index}
+
+                                                        </a>
+                                                    </li>
+                                                </c:forEach>
+
+                                                <li class="page-item">
+                                                    <a class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
+                                                        href="/admin/user?page=${currentPage +1 }" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>

@@ -44,22 +44,41 @@
                                             <h3>Create User</h3>
                                             <hr>
                                             <form:form method="post" action="/admin/user/create"
-                                                modelAttribute="newUser" class="row">
+                                                modelAttribute="newUser" class="row" enctype="multipart/form-data">
                                                 <div class="col-12 col-md-6 mb-3">
+                                                    <c:set var="errorEmail">
+                                                        <form:errors path="email" cssClass="invalid-feedback" />
+                                                    </c:set>
                                                     <label class="form-label">Email </label>
-                                                    <form:input type="email" class="form-control" path="email" />
+                                                    <form:input type="email"
+                                                        class="form-control ${not empty errorEmail ? 'is-invalid' : ''}"
+                                                        path="email" />
+                                                    ${errorEmail}
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
+                                                    <c:set var="errorPassword">
+                                                        <form:errors path="password" cssClass="invalid-feedback" />
+                                                    </c:set>
                                                     <label class="form-label">Password</label>
-                                                    <form:input type="password" class="form-control" path="password" />
+                                                    <form:input type="password"
+                                                        class="form-control ${not empty errorPassword ? 'is-invalid' : '' }"
+                                                        path="password" />
+                                                    ${errorPassword}
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label for="exampleInputPhone1" class="form-label">Phone</label>
                                                     <form:input type="text" class="form-control" path="phone" />
                                                 </div>
+
                                                 <div class="col mb-3">
+                                                    <c:set var="errorFullname">
+                                                        <form:errors path="fullName" cssClass="invalid-feedback" />
+                                                    </c:set>
                                                     <label class="form-label">Fullname</label>
-                                                    <form:input type="text" class="form-control" path="fullName" />
+                                                    <form:input type="text"
+                                                        class="form-control ${not empty errorFullname ? 'is-invalid' : ''}"
+                                                        path="fullName" />
+                                                    ${errorFullname}
                                                 </div>
 
                                                 <div class="col-12 mb-3">
@@ -69,16 +88,15 @@
 
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label class="form-label">Role:</label>
-                                                    <select class="form-select">
-                                                        <option value="1">ADMIN</option>
-                                                        <option value="2">USER</option>
-
-                                                    </select>
+                                                    <form:select class="form-select" path="role.name">
+                                                        <form:option value="ADMIN">ADMIN</form:option>
+                                                        <form:option value="USER">USER</form:option>
+                                                    </form:select>
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label for="avatarFile" class="form-label">Avatar:</label>
                                                     <input class="form-control" type="file" id="avatarFile"
-                                                        accept=" .png, .jpg, .jpeg">
+                                                        accept=" .png, .jpg, .jpeg" name="hoidanitFile" />
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <img alt="avatar preview" style="max-height: 250px; display: none;"

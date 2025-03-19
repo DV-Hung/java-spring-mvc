@@ -1,10 +1,15 @@
 package vn.hoidanit.laptopshop.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "products")
@@ -13,12 +18,27 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
+    @Size(min = 1, message = "Tên sản phẩm không đuợc để trống")
     private String name;
-    private double prive;
+
+    @NotNull
+    @DecimalMin(value = "0", inclusive = false, message = "Giá sản phẩm phải lớn hơn 0")
+    private double price;
     private String image;
+
+    @NotNull
+    @Size(min = 1, message = "Mô tả sản phẩm không đuợc để trống")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
+
+    @NotNull
+    @Size(min = 1, message = "Mô tả ngắn sản phẩm không đuợc để trống")
     private String shortDesc;
+    @NotNull
+    @Min(value = 1, message = "Số lượng sản phẩm phải lớn hơn 0")
     private long quantity;
+
     private long sold;
     private String factory;
     private String target;
@@ -39,12 +59,12 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrive() {
-        return prive;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPrive(double prive) {
-        this.prive = prive;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getImage() {
@@ -105,7 +125,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [id=" + id + ", name=" + name + ", prive=" + prive + ", image=" + image + ", detailDesc="
+        return "Product [id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + ", detailDesc="
                 + detailDesc + ", shortDesc=" + shortDesc + ", quantity=" + quantity + ", sold=" + sold + ", factory="
                 + factory + ", target=" + target + "]";
     }
